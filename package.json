@@ -1,5 +1,5 @@
 {
-  "name": "create-amala-app",
+  "name": "amala-app",
   "version": "1.2.7",
   "description": "An AmalaJS API",
   "bin": "bin/main.js",
