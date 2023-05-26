@@ -18,12 +18,12 @@ const nodeEnv = process.env.NODE_ENV
 
 // Attempt to merge with nodeEnv config if exist
 try {
-  let envFilePath = Path.join(__dirname, nodeEnv + '.env.js')
+  let envFilePath = Path.resolve(__dirname, '..', nodeEnv + '.env.js')
   let envFileExists = Fs.existsSync(envFilePath)
 
   // check for .ts variant of config file
   if (!envFileExists) {
-    envFilePath = Path.join(__dirname, nodeEnv + '.env.ts')
+    envFilePath = Path.resolve(__dirname, '..', nodeEnv + '.env.ts')
     envFileExists = Fs.existsSync(envFilePath)
   }
 
@@ -32,7 +32,7 @@ try {
       `[Environment Config] No js/ts config file found for env=${nodeEnv}. Using default.env`,
     )
   } else {
-    const envModulePath = `./${nodeEnv}.env`
+    const envModulePath = `../${nodeEnv}.env`
     const envConfig = require(envModulePath)
     _.merge(config, envConfig)
 

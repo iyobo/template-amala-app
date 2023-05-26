@@ -19,7 +19,7 @@ const isDebug = !process.env.NODE_ENV || process.env.NODE_ENV === 'dev'
 const hostUrl = process.env.BASEURL || 'http://localhost:4004'
 
 const config: IConfig = {
-  appName: 'Amable',
+  appName: 'Amala app',
   server: {
     port,
     hostUrl,
@@ -42,7 +42,7 @@ const config: IConfig = {
     },
   },
   security: {
-    issuer: 'amable.io',
+    issuer: '',
     keys: securityKeys,
     cookies: {
       secure: false,
