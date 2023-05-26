@@ -9,6 +9,15 @@
 - To run in Prod mode, first `npm run build` then `npm start`. This will compile and run from the `dist/` folder.
 - To run tests, `npm test`
 
+## Docker
+This Amala app comes docker ready for your containerization needs.
+
+
+
+## Docker-Compose
+This app also comes docker-compose ready for your dev orchestration needs.
+`docker compose up`
+
 
 ## API library
 [Amala](https://github.com/iyobo/amala)

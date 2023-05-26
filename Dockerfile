@@ -15,7 +15,7 @@ COPY --chown=node:node . .
 FROM dependencies AS build
 RUN npm run build
 
-FROM base AS production
+FROM build AS production
 ENV NODE_ENV=prod
 COPY --chown=node:node ./package*.json ./
 RUN npm ci --production
