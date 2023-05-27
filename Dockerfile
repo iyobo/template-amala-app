@@ -1,24 +1,28 @@
 ARG NODE_IMAGE=node:18.16-alpine
 
 FROM $NODE_IMAGE AS base
-RUN apk --no-cache add dumb-init
-RUN mkdir -p /home/node/app && chown node:node /home/node/app
+RUN mkdir -p /home/node/app
 WORKDIR /home/node/app
-USER node
-RUN mkdir tmp
+
+
+FROM base AS devDependencies
+COPY ./package*.json ./
+RUN npm install
+RUN npm i -g nodemon
+COPY . .
 
 FROM base AS dependencies
-COPY --chown=node:node ./package*.json ./
+COPY ./package*.json ./
 RUN npm ci
-COPY --chown=node:node . .
+COPY . .
 
 FROM dependencies AS build
 RUN npm run build
 
 FROM build AS production
 ENV NODE_ENV=prod
-COPY --chown=node:node ./package*.json ./
+COPY ./package*.json ./
 RUN npm ci --production
-COPY --chown=node:node --from=build /home/node/app/dist .
+COPY --from=build /home/node/app/dist .
 EXPOSE $PORT
 CMD [ "dumb-init", "npm", "start" ]

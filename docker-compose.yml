@@ -1,18 +1,18 @@
 version: '3.8'
 
 services:
-  postgres:
-    container_name: postgres
-    image: postgres:13
-    volumes:
-      - postgresVolume:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - 5432:5432
-    networks:
-      - amalaNetwork
+  #  postgres:
+  #    container_name: postgres
+  #    image: postgres:13
+  #    volumes:
+  #      - postgresVolume:/var/lib/postgresql/data
+  #    environment:
+  #      POSTGRES_USER: postgres
+  #      POSTGRES_PASSWORD: postgres
+  #    ports:
+  #      - 5432:5432
+  #    networks:
+  #      - amalaNetwork
 
   mongodb:
     container_name: mongodb
@@ -27,46 +27,47 @@ services:
     networks:
       - amalaNetwork
 
-  redis:
-    container_name: redis
-    image: redis:6-alpine
-    volumes:
-      - redisVolume:/data
-    ports:
-      - 6379:6379
-    networks:
-      - amalaNetwork
+  #  redis:
+  #    container_name: redis
+  #    image: redis:6-alpine
+  #    volumes:
+  #      - redisVolume:/data
+  #    ports:
+  #      - 6379:6379
+  #    networks:
+  #      - amalaNetwork
 
   api:
     container_name: api
     restart: always
-    depends_on:
-      - mongodb
-      - postgres
-      - redis
+    #    depends_on:
+    #      - mongodb
+    #      - postgres
+    #      - redis
     build:
       context: .
-      target: dependencies
+      target: devDependencies
     ports:
       - ${PORT}:${PORT}
       - 9229:9229
     env_file:
       - .env
     environment:
-      - REDIS_HOST=redis
+      #      - REDIS_HOST=redis
       - MONGO_HOST=mongodb
-      - POSTGRES_HOST=postgres
+    #      - POSTGRES_HOST=postgres
     volumes:
-      - ./:/home/node/app
+      - .:/home/node/app
       # Uncomment the below line if you developing on MacOS
       - /home/node/app/node_modules
-    command: dumb-init npm run dev
+    working_dir: /home/node/app
+    command: npm run dev --watch --node-args="--inspect=0.0.0.0"
     networks:
       - amalaNetwork
 
 volumes:
-  postgresVolume:
-  redisVolume:
+  #  postgresVolume:
+  #  redisVolume:
   mongoVolume:
 
 networks:
