@@ -15,9 +15,10 @@
     "dev": "nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node src/index.ts",
     "lint": "eslint .",
     "start": "node dist/index.js",
-    "start:pm2": "npm_config_yes=true npx pm2 start dist/index.js --name api",
-    "stop:pm2": "npx pm2 stop api",
-    "lint:fix": "eslint --fix . --ext .ts"
+    "start:pm2": "npm_config_yes=true npx pm2 start dist/index.js --name ${npm_package_name}",
+    "stop:pm2": "npx pm2 stop ${npm_package_name}",
+    "lint:fix": "eslint --fix . --ext .ts",
+    "docker:build": "docker build . -t ${npm_package_name}"
   },
   "files": [
     "dist/**/*"
