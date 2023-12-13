@@ -27,7 +27,7 @@
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.338.0",
-    "amala": "^10.0.3",
+    "amala": "^10",
     "chance": "^1.1.11",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
