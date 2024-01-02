@@ -23,7 +23,7 @@ COPY --from=build /app/package*.json ./
 RUN npm ci --production
 
 # Pull main bundle
-COPY --from=build /app/dist ./dist/index.js
+COPY --from=build /app/dist ./dist/main.js
 
 
 RUN addgroup --system --gid 1001 app
@@ -32,4 +32,4 @@ USER app
 
 
 EXPOSE $PORT
-CMD node dist/index.js
+CMD node dist/main.js
