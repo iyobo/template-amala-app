@@ -18,7 +18,7 @@ export async function launchAPI() {
     flow: [bearerToken({ reqKey: 'accessToken' })],
     openAPI: {
       enabled: true,
-      publicURL: process.env.BASE_API_URL,
+      publicURL: config.server.hostUrl,
       spec: {
         info: {
           title: config.appName,

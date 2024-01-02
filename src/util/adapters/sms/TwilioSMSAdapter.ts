@@ -1,3 +1,7 @@
+/**
+ * An example SMS adapter for Twilio. Feel free to delete or use as example to create a different one.
+ * Active default SMS adapter is set in config.ts
+ */
 import twilio from 'twilio'
 import { errorBadInput, errorDependencyFailed } from 'amala/dist/util/errors'
 import { ISMSAdapter } from '../../../types/config/ISMSAdapter'

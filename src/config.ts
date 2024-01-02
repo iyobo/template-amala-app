@@ -83,7 +83,7 @@ const config: IConfig = {
 
   mail: {
     engine: {
-      adapter: SMTPMailAdapter,
+      adapter: SMTPMailAdapter, //
       opts: {
         host: process.env.MAIL_HOST,
         port: Number.parseInt(process.env.MAIL_PORT),

@@ -1,3 +1,7 @@
+/**
+ * An example mail adapter for sparkpost. Feel free to delete or use as example to create a different one e.g mailchimp.
+ * Active default mail adapter is set in config.ts
+ */
 import config from '../../../config'
 import { errors } from 'amala'
 import { IMailAdapter } from '../../../types/config/IMailAdapter'

@@ -1,3 +1,7 @@
+/**
+ * An example mail adapter for SMTP. Feel free to delete or use as example to create a different one e.g mailchimp.
+ * Active default mail adapter is set in config.ts
+ */
 import { errors } from 'amala'
 import { IMailAdapter } from '../../../types/config/IMailAdapter'
 import { IMailSendParams } from '../../../types/config/IMailSendParams'
