@@ -17,7 +17,8 @@
     "start:pm2": "npm_config_yes=true npx pm2 start dist/index.js --name ${npm_package_name}",
     "stop:pm2": "npx pm2 stop ${npm_package_name}",
     "lint:fix": "eslint --fix . --ext .ts",
-    "docker:build": "docker build -f ./Dockerfile . -t ${npm_package_name}"
+    "docker:build": "docker build -f ./Dockerfile . -t myrepo/${npm_package_name}",
+    "docker:build:push": "pnpm run docker:build && docker push myrepo/$npm_package_name:latest"
   },
   "files": [
     "dist/**/*"

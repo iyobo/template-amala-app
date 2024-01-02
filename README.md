@@ -15,7 +15,9 @@ The default docker file uses a multi-stage approach to greatly minimize the size
 
 ### Dockerizing
 - First make sure the name in your package.json adequately represents the name of your docker image (default is "amala-app")
-- Execute `npm run docker:build` to build the image.
+- Also replace "myrepo" from the docker scripts in `package.json` with your actual container repo name.
+- Execute `npm run docker:build` to build the image locally.
+- If you wish to build and push to your docker repo, `npm run docker:build:push`
 
 
 ## Docker-Compose
