@@ -55,6 +55,8 @@
     "supertest": "^6.3.3",
     "ts-jest": "^24.0.2",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "@types/koa-cors": "^0.0.6",
+    "@types/koa-router": "^7.4.8"
   }
 }
