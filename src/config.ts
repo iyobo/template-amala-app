@@ -1,35 +1,57 @@
-import { IConfig } from './lib/configTypes'
-import TwilioSMSAdapter from '../util/adapters/sms/TwilioSMSAdapter'
-import SMTPMailAdapter from '../util/adapters/mail/SMTPMailAdapter'
+/**
+ * It is encouraged to load all process.env values in here and only use config values from this file around your app.
+ * Consider this file your app's config source of truth.
+ *
+ * As your config needs grow, modify IConfig to change the shape of your app's config options.
+ */
 
-const port = process.env.PORT ? Number.parseInt(process.env.PORT) : 4004
+import { IConfig } from './types/config/IConfig'
+import TwilioSMSAdapter from './util/adapters/sms/TwilioSMSAdapter'
+import SMTPMailAdapter from './util/adapters/mail/SMTPMailAdapter'
+
+const port = process.env.PORT ? Number.parseInt(process.env.PORT) : 4000
 const securityKeys = []
-if (process.env.SECURITY_KEY_1) {
-  securityKeys.push(process.env.SECURITY_KEY_1)
+if (process.env.AUTH_SECURITY_KEY_1) {
+  securityKeys.push(process.env.AUTH_SECURITY_KEY_1)
 }
-if (process.env.SECURITY_KEY_2) {
-  securityKeys.push(process.env.SECURITY_KEY_2)
+if (process.env.AUTH_SECURITY_KEY_2) {
+  securityKeys.push(process.env.AUTH_SECURITY_KEY_2)
 }
 if (securityKeys.length === 0) {
-  throw new Error('Please specify security keys in env file')
+  // throw new Error('Please specify security keys in env file');
+  securityKeys.push('changeMeASAP')
 }
 
 const isDebug = !process.env.NODE_ENV || process.env.NODE_ENV === 'dev'
 
-const hostUrl = process.env.BASEURL || 'http://localhost:4004'
+const hostUrl = process.env.BASE_API_URL || `http://localhost:${port}`
+const webUrl = process.env.BASE_WEB_URL || `http://localhost:3000`
 
 const config: IConfig = {
-  appName: 'Amala app',
+  appName: process.env.APP_NAME || 'Sifical',
+
+  devMode: isDebug,
+
   server: {
     port,
     hostUrl,
+    webUrl,
   },
-  devMode: isDebug,
+
+  auth: {
+    keys: securityKeys,
+  },
+
+  db: {
+    url: process.env.DB_URL,
+  },
+
   log: {
     debug: isDebug,
     token: process.env.LOGGLY_KEY,
     subdomain: process.env.LOGGLY_SUBDOMAIN,
   },
+
   storage: {
     s3: {
       forcePathStyle: false, // Configures to use subdomain/virtual calling format.
@@ -41,18 +63,7 @@ const config: IConfig = {
       },
     },
   },
-  security: {
-    issuer: '',
-    keys: securityKeys,
-    cookies: {
-      secure: false,
-      signed: true,
-      httpOnly: true,
-    },
-    crypto: {
-      saltRounds: 8,
-    },
-  },
+
   geo: {
     google: {
       key: process.env.GOOGLE_MAPS_KEY,
@@ -69,6 +80,7 @@ const config: IConfig = {
     },
     defaultFromPhone: process.env.SMS_DEFAULT_PHONE,
   },
+
   mail: {
     engine: {
       adapter: SMTPMailAdapter,
@@ -82,6 +94,7 @@ const config: IConfig = {
     },
     defaultFromEmail: process.env.MAIL_DEFAULT_ADDRESS,
     defaultFromName: process.env.MAIL_DEFAULT_NAME,
+    supportEmail: process.env.MAIL_SUPPORT_ADDRESS || 'support@sifical.com',
   },
 
   app: {
@@ -89,4 +102,4 @@ const config: IConfig = {
   },
 }
 
-module.exports = config
+export default config

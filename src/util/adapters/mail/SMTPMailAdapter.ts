@@ -1,6 +1,7 @@
-import { IMailAdapter, IMailAdapterSendParams } from '../../../config/lib/configTypes'
-import config from '../../../config/lib/config'
 import { errors } from 'amala'
+import { IMailAdapter } from '../../../types/config/IMailAdapter'
+import { IMailSendParams } from '../../../types/config/IMailSendParams'
+import config from '../../../config'
 
 const nodemailer = require('nodemailer')
 
@@ -8,14 +9,7 @@ class SMTPMailAdapter implements IMailAdapter {
   client = null
   opts = null
 
-  async send({
-    from,
-    to,
-    subject,
-    body,
-    fromName,
-    opts = {},
-  }: IMailAdapterSendParams): Promise<any> {
+  async send({ from, to, subject, body, fromName, opts = {} }: IMailSendParams): Promise<any> {
     if (!this.client) {
       throw errors.dependencyFailed('init(...) has not been run yet')
     }

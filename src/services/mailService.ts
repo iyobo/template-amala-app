@@ -1,5 +1,6 @@
-import config from '../config/lib/config'
-import { IMailAdapter, IMailAdapterSendParams } from '../config/lib/configTypes'
+import { IMailAdapter } from '../types/config/IMailAdapter'
+import config from '../config'
+import { IMailSendParams } from '../types/config/IMailSendParams'
 
 let mailEngine: IMailAdapter
 
@@ -11,7 +12,7 @@ export const initMail = async () => {
   }
 }
 
-export const sendEmail = async (params: IMailAdapterSendParams) => {
+export const sendEmail = async (params: IMailSendParams) => {
   if (!mailEngine) await initMail()
 
   return await mailEngine.send(params)

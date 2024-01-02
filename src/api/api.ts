@@ -1,26 +1,21 @@
 import { bootstrapControllers, getControllers } from 'amala'
-import config from '../config/lib/config'
-
-import jwt from 'koa-jwt'
-import * as process from 'process'
-
-const { bearerToken } = require('koa-bearer-token')
+import { bearerToken } from 'koa-bearer-token'
+import config from '../config'
+import { AuthController } from './controllers/AuthController'
+import { HelloController } from './controllers/HelloController'
 
 export async function launchAPI() {
   console.log('Launching Rest API...')
 
   const { app, router } = await bootstrapControllers({
     basePath: '/api',
-    controllers: [__dirname + '/controllers/**/*'], // It is recommended to add controllers as classes directly to this array, but you can also add glob path strings
+    controllers: [AuthController, HelloController],
     disableVersioning: true,
     validatorOptions: {
       whitelist: true,
       forbidNonWhitelisted: true,
     },
-    flow: [
-      bearerToken({ reqKey: 'accessToken' }),
-      jwt({ secret: config.security.keys, passthrough: true, key: 'jwtData' }),
-    ],
+    flow: [bearerToken({ reqKey: 'accessToken' })],
     openAPI: {
       enabled: true,
       publicURL: process.env.BASE_API_URL,
@@ -36,7 +31,7 @@ export async function launchAPI() {
     useHelmet: true,
   })
 
-  app.keys = config.security.keys
+  app.keys = config.auth.keys
   app.proxy = true
 
   console.log('Number of API controllers:', Object.keys(getControllers()).length)

@@ -6,7 +6,7 @@ import {
   PutObjectRequest,
   S3,
 } from '@aws-sdk/client-s3'
-import config from '../config/lib/config'
+import config from '../config'
 
 const client = new S3(config.storage.s3)
 

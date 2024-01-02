@@ -10,8 +10,12 @@
 - To run tests, `npm test`
 
 ## Docker
-This Amala app comes docker ready for your containerization needs.
+Amala apps come docker ready for your containerization needs. 
+The default docker file uses a multi-stage approach to greatly minimize the size of the resulting final docker image.
 
+### Dockerizing
+- First make sure the name in your package.json adequately represents the name of your docker image (default is "amala-app")
+- Execute `npm run docker:build` to build the image.
 
 
 ## Docker-Compose

@@ -1,8 +1,8 @@
-import { launchAPI } from './api/api'
 import { initializeDatabase } from './data/data'
-import config from './config/lib/config'
+import { launchAPI } from './api/api'
+import config from './config'
 
-console.log(`Starting application: ${config.appName}...`)
+console.log(`Starting Amala app: ${config.appName}`)
 
 async function main() {
   try {

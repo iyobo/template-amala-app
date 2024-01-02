@@ -1,5 +1,3 @@
-import { errors } from 'amala'
-
 /**
  * Determines if the request is authenticated. Incomplete. Implement this for your app
  * @param ctx

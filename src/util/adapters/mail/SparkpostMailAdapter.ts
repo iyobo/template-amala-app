@@ -1,6 +1,7 @@
-import { IMailAdapter, IMailAdapterSendParams } from '../../../config/lib/configTypes'
-import config from '../../../config/lib/config'
+import config from '../../../config'
 import { errors } from 'amala'
+import { IMailAdapter } from '../../../types/config/IMailAdapter'
+import { IMailSendParams } from '../../../types/config/IMailSendParams'
 
 const SparkPost = require('sparkpost')
 
@@ -8,7 +9,7 @@ class SparkpostMailAdapter implements IMailAdapter {
   client = null
   opts = null
 
-  send({ from, to, subject, body, fromName, opts = {} }: IMailAdapterSendParams): Promise<any> {
+  send({ from, to, subject, body, fromName, opts = {} }: IMailSendParams): Promise<any> {
     if (!this.client) {
       throw errors.dependencyFailed('init(...) has not been run yet')
     }

@@ -2,9 +2,8 @@
   "name": "amala-app",
   "version": "1.2.8",
   "description": "An AmalaJS API",
-  "bin": "bin/main.js",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "src/index.ts",
   "repository": {
     "type": "github"
   },
@@ -18,7 +17,7 @@
     "start:pm2": "npm_config_yes=true npx pm2 start dist/index.js --name ${npm_package_name}",
     "stop:pm2": "npx pm2 stop ${npm_package_name}",
     "lint:fix": "eslint --fix . --ext .ts",
-    "docker:build": "docker build . -t ${npm_package_name}"
+    "docker:build": "docker build -f ./Dockerfile . -t ${npm_package_name}"
   },
   "files": [
     "dist/**/*"
@@ -34,7 +33,6 @@
     "dotenv": "^16.0.3",
     "jsonwebtoken": "^9.0.0",
     "koa-bearer-token": "^2.0.2",
-    "koa-jwt": "^4.0.4",
     "ksuid": "^3.0.0",
     "lodash": "^4.17.21",
     "nodemailer": "^6.9.2",
@@ -54,9 +52,11 @@
     "prettier": "^2.8.8",
     "supertest": "^6.3.3",
     "ts-jest": "^24.0.2",
+    "ts-loader": "^9.5.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
-    "@types/koa-cors": "^0.0.6",
-    "@types/koa-router": "^7.4.8"
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-node-externals": "^3.0.0"
   }
 }

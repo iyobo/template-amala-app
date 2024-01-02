@@ -1,32 +1,6 @@
-import Cookies from 'cookies'
-import { S3ClientConfig } from '@aws-sdk/client-s3'
-
-export interface IMailAdapterSendParams {
-  to: string | [string]
-  body: string
-  from?: string
-  fromName?: string
-  subject?: string
-  opts?: any
-}
-
-export interface IMailAdapter {
-  init(opts: any): Promise<any>
-
-  send(params: IMailAdapterSendParams): Promise<any>
-}
-
-export interface ISMSAdapterParams {
-  to: string | [string]
-  body: string
-  from?: string
-}
-
-export interface ISMSAdapter {
-  init(opts: any): Promise<any>
-
-  send(params: ISMSAdapterParams): Promise<any>
-}
+import type { S3ClientConfig } from '@aws-sdk/client-s3'
+import { IMailAdapter } from './IMailAdapter'
+import { ISMSAdapter } from './ISMSAdapter'
 
 export interface IConfig {
   appName?: string
@@ -34,8 +8,13 @@ export interface IConfig {
     port?: number
     hostUrl?: string /** (string) The base url you would prepend a route with before sharing a link */
     // apiBaseUrl?: string; /*Very optional for specifying where the baseUrl on axios is*/
+    webUrl?: string
   }
   devMode?: boolean
+
+  auth: {
+    keys: string[]
+  }
 
   log?: {
     debug?: boolean
@@ -47,6 +26,10 @@ export interface IConfig {
     s3?: S3ClientConfig
   }
 
+  db?: {
+    url: string
+  }
+
   mail?: {
     engine?: {
       adapter: IMailAdapter
@@ -55,6 +38,8 @@ export interface IConfig {
 
     defaultFromEmail?: string
     defaultFromName?: string
+
+    supportEmail: string
   }
 
   sms?: {
@@ -66,15 +51,6 @@ export interface IConfig {
       }
     }
     defaultFromPhone: string
-  }
-
-  security?: {
-    keys?: string[]
-    issuer?: string
-    cookies: Cookies.SetOption
-    crypto?: {
-      saltRounds: number
-    }
   }
 
   geo?: {

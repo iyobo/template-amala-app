@@ -1,6 +1,7 @@
 import twilio from 'twilio'
-import { ISMSAdapter, ISMSAdapterParams } from '../../../types/configTypes'
 import { errorBadInput, errorDependencyFailed } from 'amala/dist/util/errors'
+import { ISMSAdapter } from '../../../types/config/ISMSAdapter'
+import { ISMSSendParams } from '../../../types/config/ISMSSendParams'
 
 class TwilioSMSAdapter implements ISMSAdapter {
   client = null
@@ -14,7 +15,7 @@ class TwilioSMSAdapter implements ISMSAdapter {
     return this.client
   }
 
-  async send({ from, to, body }: ISMSAdapterParams) {
+  async send({ from, to, body }: ISMSSendParams) {
     if (!this.client) {
       throw errorDependencyFailed('init(...) has not been run yet')
     }
