@@ -1,6 +1,6 @@
 {
   "name": "amala-app",
-  "version": "1.2.8",
+  "version": "1.3.0",
   "description": "An AmalaJS API",
   "main": "dist/index.js",
   "types": "src/index.ts",
