@@ -10,7 +10,6 @@ WORKDIR /app
 COPY ./package*.json ./
 RUN npm ci
 COPY ./src ./src
-COPY ./webpack.config.js .
 COPY ./tsconfig.json .
 RUN npm run build
 
